@@ -279,32 +279,40 @@
       line-height: 1.8;
     }
 
-    /* ═══ FULL IMAGE DISPLAY — no crop ═══ */
+    /* ═══ INTEGRATED IMAGE DISPLAY — cover, anchored top ═══ */
     .img-display {
       width: 100%;
-      background: var(--navy);
+      height: 420px;
+      overflow: hidden;
+      position: relative;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      position: relative;
     }
     .img-display img {
-      max-width: 100%;
-      width: auto;
-      height: auto;
-      max-height: 520px;
-      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
       display: block;
+      filter: brightness(0.82) contrast(1.05);
+    }
+    .img-display-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(5,5,10,0.55) 0%,
+        rgba(5,5,10,0.0) 40%,
+        rgba(5,5,10,0.0) 60%,
+        rgba(5,5,10,0.55) 100%
+      );
     }
     .img-display-label {
       position: absolute;
-      bottom: 0.6rem;
+      bottom: 1.2rem;
       left: 2.5rem;
       font-family: 'Share Tech Mono', monospace;
-      font-size: 0.6rem;
+      font-size: 0.62rem;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--gold);
@@ -778,16 +786,67 @@
     .bg-panel { background: var(--panel); }
     .bg-navy  { background: var(--navy); }
 
+    /* ═══ TOP CALL BAR ═══ */
+    .top-call-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 600;
+      background: var(--gold);
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .top-call-bar .tcb-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      color: #05050a;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .top-call-bar .tcb-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.1em;
+      color: #05050a;
+    }
+    .top-call-bar .tcb-btn {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      background: #05050a;
+      padding: 0.22rem 1rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .top-call-bar .tcb-btn:hover { background: var(--navy); }
+
+    /* Push nav below call bar */
+    nav { top: 36px !important; }
+    .hero { margin-top: calc(58px + 36px) !important; }
+
     @media (max-width: 900px) {
       section { padding: 4rem 1.8rem; }
       nav { padding: 0 1.4rem; }
       .nav-links { gap: 1rem; }
       footer { padding: 3rem 1.8rem; }
       .dark-banner { padding: 2.5rem 1.8rem; }
+      .top-call-bar { gap: 0.8rem; height: auto; padding: 0.35rem 1rem; flex-wrap: wrap; }
+      nav { top: auto !important; }
     }
   </style>
 </head>
 <body>
+
+  <!-- ═══ TOP CALL BAR — 24/7 ═══ -->
+  <div class="top-call-bar">
+    <span class="tcb-label">Ask Us Anything Anytime &nbsp;24/7</span>
+    <span class="tcb-number">415‑630‑5945</span>
+    <a href="tel:4156305945" class="tcb-btn">CLICK HERE</a>
+  </div>
 
   <!-- ═══ NAV ═══ -->
   <nav>
@@ -856,6 +915,7 @@
   <!-- ═══ IMAGE — copilot_image_1772306271921.jpeg ═══ -->
   <div class="img-display" style="background:var(--dark);">
     <img src="copilot_image_1772306271921.jpeg" alt="American AI Leadership" />
+    <div class="img-display-overlay"></div>
     <span class="img-display-label">— American AI Leadership</span>
   </div>
 
@@ -871,9 +931,9 @@
           <p style="color:var(--muted); font-size:0.97rem; line-height:1.85; margin-bottom:1.2rem;">No single AI model should ever hold unchecked power. Intelligence must be distributed across a coordinated council of agents that cross‑verify decisions, detect drift, and ensure alignment at all times.</p>
           <p style="color:var(--muted); font-size:0.97rem; line-height:1.85;">We operate as an American AI initiative focused on <strong style="color:var(--white);">technological leadership, national security, and long‑term stability.</strong> The council monitors domestic and foreign AI systems for drift, misalignment, unstable behavior, and unauthorized autonomy — ensuring all systems remain safe, predictable, and aligned with human values.</p>
         </div>
-        <!-- copilot_image_1772307020086.jpeg — full image -->
+        <!-- copilot_image_1772458796104.jpeg — full image -->
         <div class="split-img-wrap">
-          <img src="copilot_image_1772307020086.jpeg" alt="AI Operations" />
+          <img src="copilot_image_1772458796104.jpeg" alt="AI Operations" />
         </div>
       </div>
     </div>
@@ -882,6 +942,7 @@
   <!-- ═══ IMAGE — image_1772308924047.jpeg ═══ -->
   <div class="img-display">
     <img src="image_1772308924047.jpeg" alt="420 Robotics Mission" />
+    <div class="img-display-overlay"></div>
     <span class="img-display-label">— Mission Operations</span>
   </div>
 
@@ -935,6 +996,7 @@
   <!-- ═══ IMAGE — copilot_image_1772304914048.jpeg ═══ -->
   <div class="img-display" style="background:var(--panel);">
     <img src="copilot_image_1772304914048.jpeg" alt="420 Robotics Technology" />
+    <div class="img-display-overlay"></div>
     <span class="img-display-label">— AI Technology Operations</span>
   </div>
 
@@ -982,6 +1044,7 @@
   <!-- ═══ IMAGE — copilot_image_1772309337895.jpeg ═══ -->
   <div class="img-display" style="background:var(--dark);">
     <img src="copilot_image_1772309337895.jpeg" alt="420 Robotics Research" />
+    <div class="img-display-overlay"></div>
     <span class="img-display-label">— Independent Research</span>
   </div>
 
@@ -1028,6 +1091,7 @@
   <!-- ═══ IMAGE — copilot_image_1772310218750.jpeg ═══ -->
   <div class="img-display" style="background:var(--dark);">
     <img src="copilot_image_1772310218750.jpeg" alt="420 Robotics Technology" />
+    <div class="img-display-overlay"></div>
     <span class="img-display-label">— Defense Technology</span>
   </div>
 
@@ -1162,11 +1226,11 @@
           </div>
           <span class="research-arrow">›</span>
         </a>
-        <a href="mailto:info@420robotics.org" class="research-item">
+        <a href="/cdn-cgi/l/email-protection#cea7a0a8a18efafcfebca1aca1baa7adbde0a1bca9" class="research-item">
           <span class="research-num">17</span>
           <div class="research-text">
             <span class="research-title">Contact 420 Robotics</span>
-            <span class="research-domain">info@420robotics.org</span>
+            <span class="research-domain"><span class="__cf_email__" data-cfemail="d0b9beb6bf90e4e2e0a2bfb2bfa4b9b3a3febfa2b7">[email&#160;protected]</span></span>
           </div>
           <span class="research-arrow">›</span>
         </a>
@@ -1177,6 +1241,7 @@
   <!-- ═══ IMAGE — copilot_image_1772310643276.jpeg ═══ -->
   <div class="img-display" style="background:var(--dark);">
     <img src="copilot_image_1772310643276.jpeg" alt="Mach‑Effect Propulsion Research" />
+    <div class="img-display-overlay"></div>
     <span class="img-display-label">— Mach‑Effect Propulsion Research</span>
   </div>
 
@@ -1194,9 +1259,9 @@
         <div class="connect-card">
           <span class="connect-card-label">02 / Public Phone</span>
           <div class="connect-card-title">Call Us</div>
-          <p class="connect-card-detail">Reach 420 Robotics directly by phone. Our public line is available for inquiries, research questions, and partnership discussions.</p>
-          <p style="font-family:'Bebas Neue',sans-serif; font-size:1.6rem; color:var(--gold2); letter-spacing:0.1em;">213‑935‑2377</p>
-          <a href="tel:2139352377" class="btn-click">CLICK HERE</a>
+          <p class="connect-card-detail">Reach 420 Robotics directly by phone. Our public line is available 24/7 for inquiries, research questions, and partnership discussions.</p>
+          <p style="font-family:'Bebas Neue',sans-serif; font-size:1.6rem; color:var(--gold2); letter-spacing:0.1em;">415‑630‑5945</p>
+          <a href="tel:4156305945" class="btn-click">CLICK HERE</a>
         </div>
 
         <!-- CARD 3 — Facebook 420 Robotics -->
@@ -1220,8 +1285,8 @@
           <span class="connect-card-label">05 / Email</span>
           <div class="connect-card-title">Email 420 Robotics</div>
           <p class="connect-card-detail">Send us a message directly. We respond to research inquiries, media requests, partnership proposals, and general questions.</p>
-          <p style="font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:var(--gold); letter-spacing:0.1em; margin-top:0.3rem;">420robotics@gmail.com</p>
-          <a href="mailto:420robotics@gmail.com" class="btn-click">CLICK HERE</a>
+          <p style="font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:var(--gold); letter-spacing:0.1em; margin-top:0.3rem;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8bbfb9bbf9e4e9e4ffe2e8f8cbece6eae2e7a5e8e4e6">[email&#160;protected]</a></p>
+          <a href="/cdn-cgi/l/email-protection#d5e1e7e5a7bab7baa1bcb6a695b2b8b4bcb9fbb6bab8" class="btn-click">CLICK HERE</a>
         </div>
 
         <!-- CARD 6 — Legacy Treasure Group -->
@@ -1235,7 +1300,7 @@
           <p class="connect-card-detail">Our family-run thrift partner donates a portion of every sale directly to 420 Robotics. Shop, donate items, or reach out to support through Legacy Treasure Group.</p>
           <div class="btn-stack">
             <a href="https://www.facebook.com/share/179JqRrjR6/" target="_blank" class="btn-click">CLICK HERE — Facebook</a>
-            <a href="mailto:legacytreasuregroup@gmail.com" class="btn-click" style="background:var(--panel); color:var(--gold); border:1px solid var(--gold);">CLICK HERE — Email</a>
+            <a href="/cdn-cgi/l/email-protection#016d6466606278757364607274736466736e747141666c60686d2f626e6c" class="btn-click" style="background:var(--panel); color:var(--gold); border:1px solid var(--gold);">CLICK HERE — Email</a>
           </div>
         </div>
 
@@ -1291,7 +1356,7 @@
             <li>Donations Fund Research</li>
             <li>Do Not Operate For Profit</li>
           </ul>
-          <a href="https://cash.app/$420robotics" target="_blank" class="btn-donate">DONATION NEEDED</a>
+          <a href="https://github.com/skynet420robotics/skynet420robotics.github.io" target="_blank" class="btn-donate">DONATION NEEDED</a>
         </div>
         <div class="qr-block">
           <img src="35132d0d2d6baa895c5e625da50c3b7de0e03dad5c2aab745dd91da4bb45b8c6.png" alt="Cash App QR Code — $420robotics" />
@@ -1322,21 +1387,8 @@
       <div class="footer-col">
         <h4>Connect</h4>
         <ul>
-          <li><a href="mailto:420robotics@gmail.com">420robotics@gmail.com</a></li>
-          <li><a href="tel:2139352377">213‑935‑2377</a></li>
+          <li><a href="/cdn-cgi/l/email-protection#be8a8c8eccd1dcd1cad7ddcdfed9d3dfd7d290ddd1d3"><span class="__cf_email__" data-cfemail="497d7b793b262b263d202a3a092e24282025672a2624">[email&#160;protected]</span></a></li>
+          <li><a href="tel:4156305945">415‑630‑5945</a></li>
           <li><a href="https://x.com/420Robotics" target="_blank">X: @420Robotics</a></li>
           <li><a href="https://www.facebook.com/share/1CWwjWaQD8/" target="_blank">Facebook Page</a></li>
-          <li><a href="https://cash.app/$420robotics" target="_blank">Support: $420robotics</a></li>
-          <li><a href="https://skynet420robotics.github.io/420-Robotics-Ethics/" target="_blank">Trust &amp; Ethics</a></li>
-          <li><a href="https://skynet420robotics.github.io/420-Robotics-Values/" target="_blank">Our Values</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 420 Robotics — Independent AI Safety Research</p>
-      <p>For God. For Country. For Humility.</p>
-    </div>
-  </footer>
-
-</body>
-</html>
+          <li><a href="https://cash.app/$420robotics" target="_blank">Suppo
